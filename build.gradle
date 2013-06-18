@@ -1,0 +1,36 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+manifest.mainAttributes ("Main-Class" : "org.kaliy.ratiocollector.Kernel")
+
+jar {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.10'
+    compile 'org.codehaus.groovy:groovy-all:2.1.4'
+}
+
+task createDirs() << {
+    sourceSets*.allSource.srcDirs.flatten().each { File sourceDirectory ->
+        if (!sourceDirectory.exists()) {
+            println "Making ${sourceDirectory}"
+            sourceDirectory.mkdirs()
+        }
+    }
+}
+
+idea {
+    project {
+        jdkName = '1.6'
+    }
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
