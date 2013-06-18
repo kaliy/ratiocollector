@@ -1,0 +1,22 @@
+syntax: regexp
+
+# Text editors artifacts
+(.*)\.swp
+(.*)\.orig
+
+# IDE artifacts
+^(.*)\.iml
+^(.*)\.ipr
+^(.*)\.iws
+^\.idea/
+
+# Building tools artifacts
+^target/
+^\.directory/
+^out/
+^bin/
+^build/
+^\.gradle/
+
+# Other artifacts
+(.*)\.log
