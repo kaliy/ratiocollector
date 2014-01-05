@@ -2,6 +2,9 @@ package org.kaliy.ratiocollector.config
 
 import org.kaliy.ratiocollector.dataprovider.data.Tracker
 
+import javax.inject.Singleton
+
+@Singleton
 class ConfigObjectCredentialsHolder implements TrackerCredentialsHolder {
 
     ConfigObject credentials
