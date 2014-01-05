@@ -29,7 +29,9 @@ class TorrentDayInfoProvider extends TrackerInfoProvider {
     @Override
     void login() {
         log.info "Requesting http://www.td.af/torrents/"
-        createHttpBuilder("http://www.td.af/torrents/", [cookieExtractor: true]).post(body: [username: "cool", password: "cool"])
+        createHttpBuilder("http://www.td.af/torrents/", [cookieExtractor: true]).post(
+                body: [username: credentials.username, password: credentials.password]
+        )
     }
 
     @Override

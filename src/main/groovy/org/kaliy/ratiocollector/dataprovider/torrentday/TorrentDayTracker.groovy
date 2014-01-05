@@ -3,7 +3,7 @@ package org.kaliy.ratiocollector.dataprovider.torrentday
 import org.kaliy.ratiocollector.dataprovider.data.Tracker
 import org.kaliy.ratiocollector.dataprovider.data.TrackerType
 
-class TorrentDayTracker implements Tracker {
+class TorrentDayTracker extends Tracker {
     @Override
     String getName() {
         "TorrentDay"

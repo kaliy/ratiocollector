@@ -1,9 +1,26 @@
 package org.kaliy.ratiocollector.dataprovider.data
 
-interface Tracker {
-    String getName()
+abstract class Tracker {
+    /**
+     * Tracker name (TorrentDay)
+     */
+    abstract String getName()
 
-    String getUrl()
+    /**
+     * Tracker address (www.td.af)
+     */
+    abstract String getUrl()
 
-    TrackerType getType()
+    /**
+     * Tracker ratio policy (ratio-based/ratioless)
+     */
+    abstract TrackerType getType()
+
+    /**
+     * Tracker name for configuration files (torrentday)
+     */
+    String getConfigName() {
+        name.toLowerCase() - ~/[^a-zA-Z]/
+    }
+
 }
