@@ -19,6 +19,7 @@ abstract class TrackerInfoProvider {
     abstract TrackerInfo getInfo() throws NotLoggedInException
 
     abstract void login()
+
     abstract Tracker getTracker()
 
     Map getCredentials() {
