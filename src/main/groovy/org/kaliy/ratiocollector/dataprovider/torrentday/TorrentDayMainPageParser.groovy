@@ -21,9 +21,8 @@ class TorrentDayMainPageParser implements
 
     @Override
     Double getBonusPoints() {
-        mainInfoDiv."*".find { it.name() == "A" && it.@href == "mybonus.php" }."*".find {
-            true
-        }.text().replace(",", "") as Double
+        mainInfoDiv."*".find { it.name() == "A" && it.@href == "mybonus.php" }
+                ."*".find {true}.text().replace(",", "") as Double
     }
 
     @Override

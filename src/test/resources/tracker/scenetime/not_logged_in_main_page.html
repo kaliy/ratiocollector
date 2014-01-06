@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang=en xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Scenetime :: Always on Time!</title>
+        <meta content=chrome=1 http-equiv=X-UA-Compatible>
+        <meta content="text/html; charset=utf-8" http-equiv=Content-Type>
+        <link rel="shortcut icon" href="favicon.ico">
+        <script type="text/javascript" src="js/jq.js"></script>
+		<script type="text/javascript" src="js/ani.js"></script>
+        <script type="text/javascript">
+			function donategorest(){
+				$('#donatego').show();
+				$('#boogie').hide();
+			}
+			function aJaX(data) {
+				$.ajax({
+					type: "POST",
+					url: "/API/name_check_API.php",
+					data: data,
+					success: function(result){
+						if(result.indexOf("|success|") == 0){
+							var username = result.substring(9, result.length);	
+							window.open("/donate.php?useremail="+username,"_Self"); 
+						}else if(result.indexOf("|login|") == 0){
+							var mess = result.substring(7, result.length);
+							$("#useremail").css("border-color","#FF0000");
+							animatedcollapse.show('login');
+							donategorest();
+							alert(mess);
+						}else{
+							$("#useremail").css("border-color","#FF0000");
+							donategorest();
+							alert(result);
+						}
+					}
+				});
+			};
+			(function($){
+	$._={id:'#aJaxwait',ret:0};
+	$.api={
+		init:function(J){
+			if(!$._.APIset&&typeof(APIset)!="undefined"&&APIset!==null){
+				$.extend($.api,APIset);
+				$._.APIset=true;
+			}
+			if(J.er)
+				$.api.msg(J.er);
+			if(J.Fs)
+				$.each(J.Fs,function(){
+					$.api[this.Fn](this.Cn);
+				});
+		},
+		msg:function(_){
+			alert(_);
+		},
+		loading:function(_){
+			if(!_.a)
+				$($._.id)[_]().animate({'height':'toggle','opacity':'toggle'},'slow').find('span').text('loading');
+			else{
+				$($._.id+' span').text(_.t);
+			}
+		},
+		vpbox:function(_){
+			$.vpbox(_);
+		},
+		ext:function(_){
+			if(!$._[_.n]){
+				$.extend($.api,_.APIset);
+				$._[_.n] = true;
+			}
+		}
+	};
+	
+	$.API=function(__,_){
+		if($._._==__)
+			return false;
+		else
+			$._._=__;
+		if(_&&!$._.ret)
+			$.api.loading('hide');
+		
+		$.ajax({type:'POST',timeout:5000,url:'/V3/API/API.php',data:__,dataType:'json',
+			
+			success:function(x){
+				if(_)
+					$.api.loading('show');
+				$._._='';
+				$.api.init(x);
+			},
+			error:function(x, t, m){
+				if($._.ret<2){
+					$._.ret++;
+					var l = {a:'t'+$._.ret,t:$._.ret==2?'Trying for the last time.':'Trying again.'};
+					$.api.loading(l);
+					$.API($._._+'&',1);
+				}else{
+					$._.ret=0;
+					alert('Please try again later.');
+					$.api.loading('show');
+				}
+			}
+		});
+	};
+})(jQuery);
+            animatedcollapse.addDiv('login', 'fade=1,speed=400,group=login')
+            animatedcollapse.addDiv('recover', 'fade=2,speed=400,group=login,hide=1')
+            animatedcollapse.addDiv('signup', 'fade=3,speed=400,group=login,hide=1')
+			animatedcollapse.addDiv('donateok', 'fade=3,speed=400,group=login,hide=1')
+            animatedcollapse.ontoggle=function($, divobj, state){}
+            animatedcollapse.init()
+			function reload() {
+				$('.reload').attr('src', "img.php?" + (new Date()).getTime() + "&size=6");
+			}
+			function check() {
+				name = document.getElementById("donatename").value;
+				if (name.length < 6) {
+					alert ("Username is too short (min is 6 chars).");			
+					return false;
+				}else{
+					if (name.length > 12) {
+						alert ("Password is too long (max is 12 chars).");			
+						return false;
+					}else{
+						return true;
+					}
+				}
+			}
+        </script>
+        <style type="text/css">
+			#facebox .b{  background:url(/pic/b.png);border:none;}#facebox .tl{  background:url(/pic/tl.png);border:none;}#facebox .tr{  background:url(/pic/tr.png);border:none;}#facebox .bl{  background:url(/pic/bl.png);border:none;}#facebox .br{  background:url(/pic/br.png);border:none;}#facebox{top:0; left:0; z-index:100;}#facebox .popup{ position:relative}#facebox td{ border-bottom:0; padding:0}#facebox .body{ padding:10px;width:370px;background: url(/pic/b.png);}#facebox .loading{ text-align:center}#facebox .image{ text-align:center}#facebox img{ border:0; margin:0}#facebox .foter{background-color:#004e98;text-align:right}#facebox .tl,#facebox .tr,#facebox .bl,#facebox .br{ height:10px; width:10px; overflow:hidden; padding:0}#facebox_overlay{top:0px; left:0px; height:100%; width:100%}.facebox_hide{ z-index:-100}.facebox_overlayBG{ background-color:#000; z-index:99}* html #facebox_overlay{ position:absolute; height:expression(document.body.scrollHeight >document.body.offsetHeight ? document.body.scrollHeight:document.body.offsetHeight+'px')}a.close {background:transparent url(/pic/close-X.gif) repeat scroll 0pt -15px;display:block;text-decoration:none;text-indent:-5000px;height:15px;width:15px;z-index:90;overflow:hidden;top:15px;right:15px;position:absolute;}
+			* {
+				PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+			}
+			HTML {
+				HEIGHT: 100%
+			}
+			BODY {
+				background: url(/bg1.png)  ;
+				HEIGHT: 100%
+			}
+			BODY {
+				BACKGROUND-COLOR: #000; FONT-FAMILY: Bitstream Vera Sans, Tahoma, sans-serif; COLOR: white; FONT-SIZE: 11px
+			}
+			A {
+				COLOR: #757575; TEXT-DECORATION: none
+			}
+			table.sign input.resize{
+				width:214px;
+			}
+			table.sign input.resize_{
+				width:200px;
+			}
+			A:hover {
+				COLOR: #888888
+			}
+			#head {
+				BACKGROUND-COLOR: #004e98; HEIGHT: 4%; OVERFLOW: hidden;
+			}
+			#foot {
+				BACKGROUND-COLOR: #151515; HEIGHT: 4%; OVERFLOW: hidden; display:table; width:100%;
+			}
+			#watermark {
+				POSITION: relative; vertical-align:middle; padding-right:10px; text-align:right; display:table-cell;
+			}
+			#announce {
+				POSITION: relative; vertical-align:middle; padding-left:10px; text-align:left; display:table-cell;
+			}
+			#maincontent {
+				WIDTH: 100%; HEIGHT: 96%; text-align:center; z-index:5; /*background:url(test.jpg); background-repeat:no-repeat; background-position:top;*/
+			}
+			#logo {
+				BACKGROUND-IMAGE: url(images/sprite.png); PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 244px; PADDING-RIGHT: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-POSITION: left top; HEIGHT: 60px; PADDING-TOP: 50px
+			}
+			#subtext {
+				TEXT-ALIGN: justify; WIDTH: 320px
+			}
+			.inputtext {
+				PADDING-BOTTOM: 0px; PADDING-LEFT: 3px; WIDTH: 200px; PADDING-RIGHT: 3px; FONT-FAMILY: "tahoma", "arial", "helvetica", "sans-serif"; COLOR: #000000; FONT-SIZE: 8pt; PADDING-TOP: 1px
+			}
+			.hidden {
+				DISPLAY: none
+			}
+			.warning {
+				COLOR: red; FONT-WEIGHT: bold
+			}
+			a.tagbutton {
+					background: transparent url('/pic/global/tag_button_left.png') no-repeat scroll top right;
+					color: #000;
+					display: block;
+					float: left;
+					font: normal 12px arial, sans-serif;
+					height: 24px;
+					margin-right: 6px;
+					padding-right: 5px; /* sliding doors padding */
+					text-decoration: none;
+			}
+			a.tagbutton span {
+					background: transparent url('/pic/global/tag_button_right_.png') no-repeat;
+					display: block;
+					color: #000;
+					line-height: 14px;
+					padding: 5px 13px 5px 18px;
+			}
+			input#nick, input#mail, input#useremail , input#pass, input#code {
+				padding-left: 14px;
+				background: #ffffff;
+				background-repeat: no-repeat;
+				background-position: 2px center;
+			}
+			
+			input#nick{background-image: url(pic/name.png);}
+			input#mail,input#useremail{background-image: url(pic/mail.png);}
+			input#pass{background-image: url(pic/pass.png);}
+			input#code{background-image: url(/pic/red.png);}
+		</style>
+    </head>
+    <body>
+ <div style="border: medium none ; opacity: 0.5; position: absolute; top: 8%; width: 100%; text-shadow: 1px 1px rgb(0, 0, 0); background-color: rgb(255, 255, 255); padding:5px; text-align: center; font-size: 24px; font-weight: bold; color: rgb(255, 0, 0); z-index: 1;">Sign Up will be open for the next 48 hours! Join Now.</div>
+        <table id="maincontent" border=0 cellspacing=0 cellpadding=0>
+            <tbody>
+                <tr>
+                    <td valign="center" align="center">
+                    	<div id="login" style="height: auto;" fade="1" align="center">
+                        
+							<div id="facebox" style="background-color:transparent;">
+      <div class="popup" style="background-color:transparent;"><table style="background-color:transparent;"><tbody>
+            <tr>
+              <td class="tl"style="background-color:transparent;"/><td class="b"style="background-color:transparent;"/><td class="tr"style="background-color:transparent;"/>
+            </tr>
+            <tr>
+              <td class="b"style="background-color:transparent;"/>
+              <td class="body" align="center">
+                <div class="content" align="center">      
+                      <p align="center" style="color:#FFA500; font-weight:bold; text-decoration:blink;"></p>
+<br /><p  align="center">Note: You need cookies enabled to log in.</p>
+                            <form method="post" action="takelogin.php">
+                            	<table align="center" border="0" cellpadding=5>
+                                    <tr>
+                                        <td class=rowhead>Username:</td>
+                                        <td align=left><input id="nick" type="text" style="width:200px;" size=40 name="username" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class=rowhead>Password:</td>
+                                        <td align=left><input id="pass" type="password" style="width:200px;" size=40 name="password" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="right"><input type="submit" value="Log in!" class=btn></td>
+                                    </tr>
+                            </table>
+                            </form><br />
+                            <table align="center" cellspacing="0" cellpadding="3" style="border:none; background-color:transparent;">
+                                <tr>
+                                    <td align="center" valign="top" style="border:none;">
+                                        <a class="tagbutton" href="/signup.php" onclick="animatedcollapse.show ('signup'); return false;"><span>Sign Up</span></a>
+                                    </td>
+                                    <td align="center" valign="top" style="border:none;">
+                                        <a class="tagbutton" id="recovery" title="Forgot Password" href="/recover.php" onclick="animatedcollapse.show('recover'); return false;"><span>Forgot Password</span></a>
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+              </td>
+              <td class="b"style="background-color:transparent;"/>
+            </tr>
+            <tr>
+              <td class="bl"style="background-color:transparent;"/><td class="b"/><td class="br"style="background-color:transparent;"/>
+            </tr>
+          </tbody>
+        </table></div></div>                     
+                        </div>
+                        <div id="signup" style="display:none; height: auto;" fade="1" align="center">
+                        <div id="facebox" style="background-color:transparent;">
+      <div class="popup" style="background-color:transparent;"><table style="background-color:transparent;"><tbody>
+            <tr>
+              <td class="tl"style="background-color:transparent;"/><td class="b"style="background-color:transparent;"/><td class="tr"style="background-color:transparent;"/>
+            </tr>
+            <tr>
+              <td class="b"style="background-color:transparent;"/>
+              <td class="body" align="center">
+                <div class="content" align="center">                            <table align="center" cellspacing="0" cellpadding="3" style="border:none; background-color:transparent;">
+                                <tr>
+                                    <td align="center" valign="top" style="border:none;">
+                                        <a class="tagbutton" href="#" onclick="animatedcollapse.show('login'); return false;"><span>Login</span></a>
+                                    </td>
+                                    <td align="center" valign="top" style="border:none;">
+                                        <a class="tagbutton" id="recovery" title="Forgot Password" href="/recover.php" onclick="animatedcollapse.show('recover'); return false;"><span>Forgot Password</span></a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table align="center" cellspacing="0" cellpadding="3" style="border:none; background-color:transparent;">
+                                <tr>
+                                    <td align="center" valign="middle" style="border:none; font-size: 12px; font-weight:bold;">
+                            <p align="center">Note: You need cookies enabled to sign up or log in.</p>
+                            
+                            <form method="post" action="takesignup.php">
+                            <table width="530" cellspacing="5" cellpadding="10" border="0" class="sign">
+                                <tr>
+                                    <td align="right" class="heading">Username:</td>
+                                    <td align="left"><input type="text" id="nick" class="resize_" size="40" name="wantusername"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="heading">Password:</td>
+                                    <td align="left"><input type="password" id="pass" class="resize_" size="40" name="wantpassword"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="heading">Re-password:</td>
+                                    <td align="left"><input type="password" id="pass" class="resize_" size="40" name="passagain"></td>
+                                </tr>
+                                <tr valign="top">
+                                    <td align="right" class="heading">Email:</td>
+                                    <td align="left"><input type="text" id="mail" class="resize_" size="40" name="email"></td>
+                                </tr>
+                                <tr style="">
+                                    <td align="right" class="heading"></td>
+                                    <td align="left" style="padding-top: 20px;">
+                                    	<a href="javascript:reload();" title="Request a new picture" accesskey="i" class="none">
+                                        	<img height="20" border="0" class="reload" src="img.php?size=6" style="width:216px;">
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="heading ">Above Code</td>
+                                    <td align="left"><input class='input resize_' type='text' id='code' name='vImageCodP' autocomplete='off'  /></td>
+                                </tr>
+                            	<tr>
+                              		<td align="center" colspan="2">
+                                    	<input type="submit" value="Sign up! (PRESS ONLY ONCE)" style="height: 25px">
+                                    </td>
+                              	</tr>
+                            </table>
+                            </form>
+                            </td>
+                            </tr>
+                            </table>
+                        	</div>
+              </td>
+              <td class="b"style="background-color:transparent;"/>
+            </tr>
+            <tr>
+              <td class="bl"style="background-color:transparent;"/><td class="b"/><td class="br"style="background-color:transparent;"/>
+            </tr>
+          </tbody>
+        </table></div></div>                        </div>
+                        <div id="recover" style="display:none; height: auto;" fade="1" align="center">
+                        	<div id="facebox" style="background-color:transparent;">
+      <div class="popup" style="background-color:transparent;"><table style="background-color:transparent;"><tbody>
+            <tr>
+              <td class="tl"style="background-color:transparent;"/><td class="b"style="background-color:transparent;"/><td class="tr"style="background-color:transparent;"/>
+            </tr>
+            <tr>
+              <td class="b"style="background-color:transparent;"/>
+              <td class="body" align="center">
+                <div class="content" align="center">                                 <table align="center" cellspacing="0" cellpadding="3" style="border:none; background-color:transparent;">
+                                    <tr>
+                                        <td align="center" valign="top" style="border:none;">
+                                            <a class="tagbutton" href="/signup.php" onclick="animatedcollapse.show('login'); return false;"><span>Login</span></a>
+                                        </td>
+                                        <td align="center" valign="top" style="border:none;">
+                                            <a class="tagbutton" href="/signup.php" ="animatedcollapse.show('signup'); return false;"><span>Sign Up</span></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <form method="post" action="recover.php" id="jxlin=4&jxt=1&jxw=rec&" onsubmit="$.API(this.id+$(this).serialize());$('#recovergo').hide();$('.boogie').show();return false;">
+                                <table align="center" border="0" cellpadding=5>
+                                	<tr>
+                                    	<p align="center">Registered email address.</p>
+                                		<td align=left><input type="text" name="email" size="40" class="uiInput" id="useremail" style="border-color: rgb(255, 0, 0);" /></td>
+                                    </tr>
+                                	<tr>
+                                    	<td colspan="2" align="right"><input type=submit value='Do it!' class=btn></td>
+                                    </tr>
+                                </table>
+                                </form>
+                            </div>
+              </td>
+              <td class="b"style="background-color:transparent;"/>
+            </tr>
+            <tr>
+              <td class="bl"style="background-color:transparent;"/><td class="b"/><td class="br"style="background-color:transparent;"/>
+            </tr>
+          </tbody>
+        </table></div></div>						</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+		<div id=foot>
+			<div id=watermark>If you have problem with login contact: <font color="#FF0000" style="font-weight:bold;">scenetimehelp@gmail.com</font></div>
+        </div>
+    </body>
+</html>
